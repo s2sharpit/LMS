@@ -1,0 +1,71 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 29
+Server version: 5.5.60 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use library
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_library |
++-------------------+
+| bookrecords       |
+| issuebooks        |
+| memberrecords     |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bookrecords;
++----------+--------------------+----------------+-----------+---------------------+----------+------------+
+| bookcode | bookname           | bookauthorname | bookprice | publisher           | quantity | dop        |
++----------+--------------------+----------------+-----------+---------------------+----------+------------+
+|      551 | Python Programming | Van Guido      |       550 | CBSE Publisher      |       45 | 2019-04-05 |
+|      552 | Java Programming   | James Gossling |       660 | Reference Publisher |       70 | 2018-08-03 |
+|      553 | Objective C        | Denis          |       440 | abc publisher       |       55 | 2019-03-04 |
++----------+--------------------+----------------+-----------+---------------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from memberrecords;
++----------+---------+------------+------------+------------------+
+| memberno | mname   | mmobile    | dom        | maddress         |
++----------+---------+------------+------------+------------------+
+|      223 | Parveen | 9897868542 | 2019-08-04 | Professor Cloney |
++----------+---------+------------+------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from issuebooks;
++----------+----------+------------+------+
+| bookcode | memberno | doi        | dor  |
++----------+----------+------------+------+
+|      552 |      223 | 2019-04-09 | NULL |
++----------+----------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from issuebooks;
++----------+----------+------------+------------+
+| bookcode | memberno | doi        | dor        |
++----------+----------+------------+------------+
+|      552 |      223 | 2019-04-09 | 2019-12-13 |
++----------+----------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select B.bookcode,B.bookname,M.memberno,M.mname,I.doi,I.dor from bookrecords B,issuebooks I,memberrecords M where B.bookcode=I.bookcode and I.memberno=M.memberno;
++----------+------------------+----------+---------+------------+------------+
+| bookcode | bookname         | memberno | mname   | doi        | dor        |
++----------+------------------+----------+---------+------------+------------+
+|      552 | Java Programming |      223 | Parveen | 2019-04-09 | 2019-12-13 |
++----------+------------------+----------+---------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
